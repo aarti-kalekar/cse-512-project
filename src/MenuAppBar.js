@@ -18,6 +18,7 @@ import ListItemText from '@mui/material/ListItemText';
 
 import BasicTable from './BasicTable';
 import { camelCaseToTitleCase, titleToCamelCase } from './utils/functions';
+import { AddButton } from './AddButton';
 const drawerWidth = 240;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -84,7 +85,7 @@ export default function MenuAppBar() {
 		return {
 			headings,
 			props,
-			rows: d,
+			rows: [...d],
 			rowKey: 'id',
 		};
 	};
@@ -116,11 +117,34 @@ export default function MenuAppBar() {
 	};
 
 	const handleSetRows = (formData) => {
-		setTableData((d) => ({
+		setTableData({
 			...tableData,
 			rows: tableData.rows.map((r) => (r.id === formData.id ? formData : r)),
+		});
+	};
+	const handleDeleteRow = (id) => {
+		setTableData((d) => ({
+			...tableData,
+			rows: tableData.rows.filter((r) => r.id !== id),
 		}));
 	};
+
+	const handleAddRow = (data) => {
+		console.log(tableName, data);
+		fetch(`http://localhost:8000/${titleToCamelCase(tableName)}`, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(data),
+		})
+			.then((response) => response.json())
+			.then(() => {
+				setTableData({
+					...tableData,
+					rows: [...tableData.rows, data],
+				});
+			});
+	};
+
 	return (
 		<Box sx={{ display: 'flex' }}>
 			<CssBaseline />
@@ -195,11 +219,20 @@ export default function MenuAppBar() {
 				<DrawerHeader />
 				<Typography sx={{ marginBottom: 2 }}>{tableName}</Typography>
 				{tableData && (
-					<BasicTable
-						{...tableData}
-						onSetRows={handleSetRows}
-						tableName={tableName}
-					/>
+					<>
+						<BasicTable
+							{...tableData}
+							onSetRows={handleSetRows}
+							tableName={titleToCamelCase(tableName)}
+							onDeleteRow={handleDeleteRow}
+						/>
+						<AddButton
+							headings={tableData.headings}
+							props={tableData.props}
+							tableName={tableName}
+							onAddRow={handleAddRow}
+						/>
+					</>
 				)}
 			</Main>
 		</Box>

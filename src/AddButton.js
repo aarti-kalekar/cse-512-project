@@ -1,4 +1,6 @@
 import * as React from 'react';
+import Fab from '@mui/material/Fab';
+import AddIcon from '@mui/icons-material/Add';
 import { Box, Button, Modal, TextField } from '@mui/material';
 
 const style = {
@@ -12,41 +14,36 @@ const style = {
 	'& .MuiTextField-root': { m: 1, width: '25ch' },
 };
 
-export default function EditButton({
-	headings,
-	props,
-	row,
-	onHandleSave,
-	tableName,
-}) {
+export const AddButton = ({ headings, props, onAddRow, tableName }) => {
 	const [open, setOpen] = React.useState(false);
+	const [formData, setFormData] = React.useState({});
 
-	const [formData, setFormData] = React.useState(row);
-	
-	React.useEffect(() => {
-		setFormData(row);
-	}, [row]);
+	const handleOpen = () => {
+		setOpen(true);
+	};
+
+	const handleClose = () => setOpen(false);
+
+	const handleAddRow = () => {
+		onAddRow(formData);
+        handleClose();
+	};
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
 		setFormData((prevState) => ({ ...prevState, [name]: value }));
 	};
 
-	const handleOpen = () => {
-		setOpen(true);
-	};
-	const handleClose = () => setOpen(false);
-
-	const handleSave = () => {
-		onHandleSave(formData);
-		handleClose();
-	};
-
 	return (
 		<>
-			<Button variant="contained" onClick={handleOpen}>
-				Edit
-			</Button>
+			<Fab
+				color="primary"
+				aria-label="add"
+				style={{ position: 'fixed', bottom: '25px', right: '25px' }}
+				onClick={handleOpen}
+			>
+				<AddIcon />
+			</Fab>
 			<Modal
 				open={open}
 				onClose={handleClose}
@@ -61,10 +58,9 @@ export default function EditButton({
 									heading && (
 										<TextField
 											name={props[i]}
-											key={`${tableName}-${heading}-${row.id}`}
+											key={`${tableName}-${heading}`}
 											label={heading}
 											variant="outlined"
-											defaultValue={row[props[i]]}
 											onChange={handleChange}
 										/>
 									)
@@ -72,13 +68,13 @@ export default function EditButton({
 						</div>
 						<div>
 							<Button
-								onClick={handleSave}
 								style={{
 									marginLeft: '7px',
 									marginTop: '10px',
 									justifySelf: 'self-end',
 								}}
 								variant="contained"
+								onClick={handleAddRow}
 							>
 								Save
 							</Button>
@@ -88,4 +84,4 @@ export default function EditButton({
 			</Modal>
 		</>
 	);
-}
+};
