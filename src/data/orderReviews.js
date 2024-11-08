@@ -1,0 +1,98 @@
+export const orderReviews = [
+	{
+		id: 1,
+		orderId: 101,
+		reviewScore: 5,
+		reviewCommentTitle: 'Excellent Service',
+		reviewCommentMessage:
+			'The product arrived on time and in perfect condition. Very satisfied!',
+		reviewCreationDate: '2024-10-01T14:30:00',
+		reviewAnswerTimestamp: '2024-10-02T09:45:00',
+	},
+	{
+		id: 2,
+		orderId: 102,
+		reviewScore: 4,
+		reviewCommentTitle: 'Good Quality',
+		reviewCommentMessage:
+			'The product quality is good, but the packaging could be improved.',
+		reviewCreationDate: '2024-10-03T11:15:00',
+		reviewAnswerTimestamp: '2024-10-04T10:00:00',
+	},
+	{
+		id: 3,
+		orderId: 103,
+		reviewScore: 3,
+		reviewCommentTitle: 'Average Experience',
+		reviewCommentMessage: 'The product is okay, but the delivery was delayed.',
+		reviewCreationDate: '2024-10-05T08:00:00',
+		reviewAnswerTimestamp: '2024-10-06T13:30:00',
+	},
+	{
+		id: 4,
+		orderId: 104,
+		reviewScore: 2,
+		reviewCommentTitle: 'Not Satisfied',
+		reviewCommentMessage: 'The product did not meet my expectations.',
+		reviewCreationDate: '2024-10-07T15:20:00',
+		reviewAnswerTimestamp: '2024-10-08T12:45:00',
+	},
+	{
+		id: 5,
+		orderId: 105,
+		reviewScore: 5,
+		reviewCommentTitle: 'Perfect Purchase',
+		reviewCommentMessage: 'Everything was perfect from order to delivery!',
+		reviewCreationDate: '2024-10-09T09:50:00',
+		reviewAnswerTimestamp: '2024-10-09T17:00:00',
+	},
+	{
+		id: 6,
+		orderId: 106,
+		reviewScore: 1,
+		reviewCommentTitle: 'Poor Experience',
+		reviewCommentMessage:
+			'Received the wrong item and had difficulty with customer service.',
+		reviewCreationDate: '2024-10-10T13:40:00',
+		reviewAnswerTimestamp: '2024-10-11T10:30:00',
+	},
+	{
+		id: 7,
+		orderId: 107,
+		reviewScore: 4,
+		reviewCommentTitle: 'Great Product',
+		reviewCommentMessage:
+			'Very happy with the product, though delivery took longer than expected.',
+		reviewCreationDate: '2024-10-12T10:10:00',
+		reviewAnswerTimestamp: '2024-10-13T16:20:00',
+	},
+	{
+		id: 8,
+		orderId: 108,
+		reviewScore: 5,
+		reviewCommentTitle: 'Highly Recommend',
+		reviewCommentMessage: 'Product is excellent, and delivery was prompt.',
+		reviewCreationDate: '2024-10-13T14:45:00',
+		reviewAnswerTimestamp: '2024-10-14T12:15:00',
+	},
+	{
+		id: 9,
+		orderId: 109,
+		reviewScore: 3,
+		reviewCommentTitle: 'Average Service',
+		reviewCommentMessage:
+			'The product is decent, but it took too long to arrive.',
+		reviewCreationDate: '2024-10-14T11:30:00',
+		reviewAnswerTimestamp: '2024-10-15T13:00:00',
+	},
+	{
+		id: 10,
+		orderId: 110,
+		reviewScore: 2,
+		reviewCommentTitle: 'Disappointing',
+		reviewCommentMessage:
+			'Item was not as described, and I had issues with the return process.',
+		reviewCreationDate: '2024-10-15T16:25:00',
+		reviewAnswerTimestamp: '2024-10-16T11:45:00',
+	},
+];

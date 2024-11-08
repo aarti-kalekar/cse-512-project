@@ -1,0 +1,606 @@
+{
+  "customers": [
+    {
+      "id": "1",
+      "uniqueId": "A1B2C3D4",
+      "zipCode": "90211",
+      "city": "Beverly Hills",
+      "state": "CA"
+    },
+    {
+      "id": "2",
+      "uniqueId": "E5F6G7H8",
+      "zipCode": "10002",
+      "city": "New York",
+      "state": "NY"
+    },
+    {
+      "id": "3",
+      "uniqueId": "I9J0K1L2",
+      "zipCode": "30301",
+      "city": "Atlanta",
+      "state": "GA"
+    },
+    {
+      "id": "4",
+      "uniqueId": "M3N4O5P6",
+      "zipCode": "60601",
+      "city": "Chicago",
+      "state": "IL"
+    },
+    {
+      "id": "5",
+      "uniqueId": "Q7R8S9T0",
+      "zipCode": "73301",
+      "city": "Austin",
+      "state": "TX"
+    },
+    {
+      "id": "6",
+      "uniqueId": "U1V2W3X4",
+      "zipCode": "98101",
+      "city": "Seattle",
+      "state": "MA"
+    },
+    {
+      "id": "7",
+      "uniqueId": "Y5Z6A7B8",
+      "zipCode": "85001",
+      "city": "Phoenix",
+      "state": "AZ"
+    },
+    {
+      "id": "8",
+      "uniqueId": "C9D0E1F2",
+      "zipCode": "19103",
+      "city": "Philadelphia",
+      "state": "PA"
+    },
+    {
+      "id": "9",
+      "uniqueId": "G3H4I5J6",
+      "zipCode": "02101",
+      "city": "Boston",
+      "state": "MA"
+    },
+    {
+      "id": "10",
+      "uniqueId": "K7L8M9N0",
+      "zipCode": "94101",
+      "city": "San Francisco",
+      "state": "CA"
+    }
+  ],
+  "orderItems": [
+    {
+      "id": "1",
+      "orderItemId": "OI1001",
+      "productId": "P12345",
+      "sellerId": "S001",
+      "shippingLimitDate": "2024-11-10T23:59:59",
+      "price": 29.99,
+      "freightValue": 5.99
+    },
+    {
+      "id": "2",
+      "orderItemId": "OI1002",
+      "productId": "P67890",
+      "sellerId": "S002",
+      "shippingLimitDate": "2024-11-12T23:59:59",
+      "price": 49.99,
+      "freightValue": 7.49
+    },
+    {
+      "id": "3",
+      "orderItemId": "OI1003",
+      "productId": "P54321",
+      "sellerId": "S003",
+      "shippingLimitDate": "2024-11-15T23:59:59",
+      "price": 15.75,
+      "freightValue": 3.5
+    },
+    {
+      "id": "4",
+      "orderItemId": "OI1004",
+      "productId": "P98765",
+      "sellerId": "S004",
+      "shippingLimitDate": "2024-11-18T23:59:59",
+      "price": 89.99,
+      "freightValue": 12
+    },
+    {
+      "id": "5",
+      "orderItemId": "OI1005",
+      "productId": "P11223",
+      "sellerId": "S005",
+      "shippingLimitDate": "2024-11-20T23:59:59",
+      "price": 23.5,
+      "freightValue": 4.75
+    },
+    {
+      "id": "6",
+      "orderItemId": "OI1006",
+      "productId": "P44556",
+      "sellerId": "S006",
+      "shippingLimitDate": "2024-11-25T23:59:59",
+      "price": 62,
+      "freightValue": 8.99
+    },
+    {
+      "id": "7",
+      "orderItemId": "OI1007",
+      "productId": "P77889",
+      "sellerId": "S007",
+      "shippingLimitDate": "2024-11-30T23:59:59",
+      "price": 120,
+      "freightValue": 15.5
+    },
+    {
+      "id": "8",
+      "orderItemId": "OI1008",
+      "productId": "P99001",
+      "sellerId": "S008",
+      "shippingLimitDate": "2024-12-02T23:59:59",
+      "price": 7.99,
+      "freightValue": 2.99
+    },
+    {
+      "id": "9",
+      "orderItemId": "OI1009",
+      "productId": "P22445",
+      "sellerId": "S009",
+      "shippingLimitDate": "2024-12-05T23:59:59",
+      "price": 35,
+      "freightValue": 6.5
+    },
+    {
+      "id": "10",
+      "orderItemId": "OI1010",
+      "productId": "P66778",
+      "sellerId": "S010",
+      "shippingLimitDate": "2024-12-08T23:59:59",
+      "price": 54.75,
+      "freightValue": 10.25
+    }
+  ],
+  "orderPayments": [
+    {
+      "id": 1,
+      "paymentSequential": 1,
+      "paymentType": "credit_card",
+      "paymentInstallments": 3,
+      "paymentValue": 150
+    },
+    {
+      "id": 2,
+      "paymentSequential": 2,
+      "paymentType": "debit_card",
+      "paymentInstallments": 1,
+      "paymentValue": 75.5
+    },
+    {
+      "id": 3,
+      "paymentSequential": 3,
+      "paymentType": "boleto",
+      "paymentInstallments": 1,
+      "paymentValue": 200
+    },
+    {
+      "id": 4,
+      "paymentSequential": 4,
+      "paymentType": "credit_card",
+      "paymentInstallments": 5,
+      "paymentValue": 300
+    },
+    {
+      "id": 5,
+      "paymentSequential": 5,
+      "paymentType": "voucher",
+      "paymentInstallments": 1,
+      "paymentValue": 20
+    },
+    {
+      "id": 6,
+      "paymentSequential": 6,
+      "paymentType": "credit_card",
+      "paymentInstallments": 2,
+      "paymentValue": 120
+    },
+    {
+      "id": 7,
+      "paymentSequential": 7,
+      "paymentType": "credit_card",
+      "paymentInstallments": 4,
+      "paymentValue": 250
+    },
+    {
+      "id": 8,
+      "paymentSequential": 8,
+      "paymentType": "debit_card",
+      "paymentInstallments": 1,
+      "paymentValue": 60
+    },
+    {
+      "id": 9,
+      "paymentSequential": 9,
+      "paymentType": "boleto",
+      "paymentInstallments": 1,
+      "paymentValue": 180
+    },
+    {
+      "id": 10,
+      "paymentSequential": 10,
+      "paymentType": "credit_card",
+      "paymentInstallments": 3,
+      "paymentValue": 95.75
+    }
+  ],
+  "orderReviews": [
+    {
+      "id": "1",
+      "orderId": 101,
+      "reviewScore": 5,
+      "reviewCommentTitle": "Excellent Service",
+      "reviewCommentMessage": "The product arrived on time and in perfect condition. Very satisfied!",
+      "reviewCreationDate": "2024-10-01T14:30:00",
+      "reviewAnswerTimestamp": "2024-10-02T09:45:00"
+    },
+    {
+      "id": "2",
+      "orderId": 102,
+      "reviewScore": 4,
+      "reviewCommentTitle": "Good Quality",
+      "reviewCommentMessage": "The product quality is good, but the packaging could be improved.",
+      "reviewCreationDate": "2024-10-03T11:15:00",
+      "reviewAnswerTimestamp": "2024-10-04T10:00:00"
+    },
+    {
+      "id": "3",
+      "orderId": 103,
+      "reviewScore": 3,
+      "reviewCommentTitle": "Average Experience",
+      "reviewCommentMessage": "The product is okay, but the delivery was delayed.",
+      "reviewCreationDate": "2024-10-05T08:00:00",
+      "reviewAnswerTimestamp": "2024-10-06T13:30:00"
+    },
+    {
+      "id": "4",
+      "orderId": 104,
+      "reviewScore": 2,
+      "reviewCommentTitle": "Not Satisfied",
+      "reviewCommentMessage": "The product did not meet my expectations.",
+      "reviewCreationDate": "2024-10-07T15:20:00",
+      "reviewAnswerTimestamp": "2024-10-08T12:45:00"
+    },
+    {
+      "id": "5",
+      "orderId": 105,
+      "reviewScore": 5,
+      "reviewCommentTitle": "Perfect Purchase",
+      "reviewCommentMessage": "Everything was perfect from order to delivery!",
+      "reviewCreationDate": "2024-10-09T09:50:00",
+      "reviewAnswerTimestamp": "2024-10-09T17:00:00"
+    },
+    {
+      "id": "6",
+      "orderId": 106,
+      "reviewScore": 1,
+      "reviewCommentTitle": "Poor Experience",
+      "reviewCommentMessage": "Received the wrong item and had difficulty with customer service.",
+      "reviewCreationDate": "2024-10-10T13:40:00",
+      "reviewAnswerTimestamp": "2024-10-11T10:30:00"
+    },
+    {
+      "id": "7",
+      "orderId": 107,
+      "reviewScore": 4,
+      "reviewCommentTitle": "Great Product",
+      "reviewCommentMessage": "Very happy with the product, though delivery took longer than expected.",
+      "reviewCreationDate": "2024-10-12T10:10:00",
+      "reviewAnswerTimestamp": "2024-10-13T16:20:00"
+    },
+    {
+      "id": "8",
+      "orderId": 108,
+      "reviewScore": 5,
+      "reviewCommentTitle": "Highly Recommend",
+      "reviewCommentMessage": "Product is excellent, and delivery was prompt.",
+      "reviewCreationDate": "2024-10-13T14:45:00",
+      "reviewAnswerTimestamp": "2024-10-14T12:15:00"
+    },
+    {
+      "id": "9",
+      "orderId": 109,
+      "reviewScore": 3,
+      "reviewCommentTitle": "Average Service",
+      "reviewCommentMessage": "The product is decent, but it took too long to arrive.",
+      "reviewCreationDate": "2024-10-14T11:30:00",
+      "reviewAnswerTimestamp": "2024-10-15T13:00:00"
+    },
+    {
+      "id": "10",
+      "orderId": 110,
+      "reviewScore": 2,
+      "reviewCommentTitle": "Disappointing",
+      "reviewCommentMessage": "Item was not as described, and I had issues with the return process.",
+      "reviewCreationDate": "2024-10-15T16:25:00",
+      "reviewAnswerTimestamp": "2024-10-16T11:45:00"
+    }
+  ],
+  "orders": [
+    {
+      "id": "1001",
+      "customerId": 1,
+      "orderStatus": "delivered",
+      "orderPurchaseTimestamp": "2024-10-01T08:45:00",
+      "orderApprovedAt": "2024-10-01T09:15:00",
+      "orderDeliveredCarrierDate": "2024-10-02T11:00:00",
+      "orderDeliveredCustomerDate": "2024-10-05T15:30:00",
+      "orderEstimatedDeliveryDate": "2024-10-07T18:00:00"
+    },
+    {
+      "id": "1002",
+      "customerId": 2,
+      "orderStatus": "shipped",
+      "orderPurchaseTimestamp": "2024-10-03T10:30:00",
+      "orderApprovedAt": "2024-10-03T11:00:00",
+      "orderDeliveredCarrierDate": "2024-10-04T13:15:00",
+      "orderDeliveredCustomerDate": null,
+      "orderEstimatedDeliveryDate": "2024-10-08T17:00:00"
+    },
+    {
+      "id": "1003",
+      "customerId": 3,
+      "orderStatus": "processing",
+      "orderPurchaseTimestamp": "2024-10-04T14:20:00",
+      "orderApprovedAt": "2024-10-04T14:45:00",
+      "orderDeliveredCarrierDate": null,
+      "orderDeliveredCustomerDate": null,
+      "orderEstimatedDeliveryDate": "2024-10-10T18:30:00"
+    },
+    {
+      "id": "1004",
+      "customerId": 4,
+      "orderStatus": "delivered",
+      "orderPurchaseTimestamp": "2024-10-05T09:15:00",
+      "orderApprovedAt": "2024-10-05T09:45:00",
+      "orderDeliveredCarrierDate": "2024-10-06T12:00:00",
+      "orderDeliveredCustomerDate": "2024-10-09T16:20:00",
+      "orderEstimatedDeliveryDate": "2024-10-11T19:00:00"
+    },
+    {
+      "id": "1005",
+      "customerId": 5,
+      "orderStatus": "canceled",
+      "orderPurchaseTimestamp": "2024-10-06T07:30:00",
+      "orderApprovedAt": null,
+      "orderDeliveredCarrierDate": null,
+      "orderDeliveredCustomerDate": null,
+      "orderEstimatedDeliveryDate": null
+    },
+    {
+      "id": "1006",
+      "customerId": 6,
+      "orderStatus": "delivered",
+      "orderPurchaseTimestamp": "2024-10-07T13:50:00",
+      "orderApprovedAt": "2024-10-07T14:10:00",
+      "orderDeliveredCarrierDate": "2024-10-08T10:30:00",
+      "orderDeliveredCustomerDate": "2024-10-10T14:50:00",
+      "orderEstimatedDeliveryDate": "2024-10-12T17:30:00"
+    },
+    {
+      "id": "1007",
+      "customerId": 7,
+      "orderStatus": "shipped",
+      "orderPurchaseTimestamp": "2024-10-08T08:15:00",
+      "orderApprovedAt": "2024-10-08T08:45:00",
+      "orderDeliveredCarrierDate": "2024-10-09T12:15:00",
+      "orderDeliveredCustomerDate": null,
+      "orderEstimatedDeliveryDate": "2024-10-13T16:00:00"
+    },
+    {
+      "id": "1008",
+      "customerId": 8,
+      "orderStatus": "processing",
+      "orderPurchaseTimestamp": "2024-10-09T11:30:00",
+      "orderApprovedAt": "2024-10-09T11:50:00",
+      "orderDeliveredCarrierDate": null,
+      "orderDeliveredCustomerDate": null,
+      "orderEstimatedDeliveryDate": "2024-10-15T19:30:00"
+    },
+    {
+      "id": "1009",
+      "customerId": 9,
+      "orderStatus": "delivered",
+      "orderPurchaseTimestamp": "2024-10-10T15:25:00",
+      "orderApprovedAt": "2024-10-10T15:45:00",
+      "orderDeliveredCarrierDate": "2024-10-11T09:20:00",
+      "orderDeliveredCustomerDate": "2024-10-13T12:40:00",
+      "orderEstimatedDeliveryDate": "2024-10-14T18:00:00"
+    },
+    {
+      "id": "1010",
+      "customerId": 10,
+      "orderStatus": "delivered",
+      "orderPurchaseTimestamp": "2024-10-11T16:10:00",
+      "orderApprovedAt": "2024-10-11T16:30:00",
+      "orderDeliveredCarrierDate": "2024-10-12T14:45:00",
+      "orderDeliveredCustomerDate": "2024-10-15T13:00:00",
+      "orderEstimatedDeliveryDate": "2024-10-16T17:45:00"
+    }
+  ],
+  "products": [
+    {
+      "id": "P12345",
+      "productCategoryName": "electronics",
+      "productNameLength": 15,
+      "productDescriptionLength": 120,
+      "productPhotosQty": 3,
+      "productWeightG": 500,
+      "productLengthCm": 20,
+      "productHeightCm": 5,
+      "productWidthCm": 10
+    },
+    {
+      "id": "P67890",
+      "productCategoryName": "home_appliances",
+      "productNameLength": 18,
+      "productDescriptionLength": 200,
+      "productPhotosQty": 4,
+      "productWeightG": 3000,
+      "productLengthCm": 50,
+      "productHeightCm": 15,
+      "productWidthCm": 25
+    },
+    {
+      "id": "P54321",
+      "productCategoryName": "sports",
+      "productNameLength": 12,
+      "productDescriptionLength": 90,
+      "productPhotosQty": 2,
+      "productWeightG": 800,
+      "productLengthCm": 30,
+      "productHeightCm": 8,
+      "productWidthCm": 12
+    },
+    {
+      "id": "P98765",
+      "productCategoryName": "furniture",
+      "productNameLength": 20,
+      "productDescriptionLength": 250,
+      "productPhotosQty": 5,
+      "productWeightG": 15000,
+      "productLengthCm": 100,
+      "productHeightCm": 40,
+      "productWidthCm": 60
+    },
+    {
+      "id": "P11223",
+      "productCategoryName": "toys",
+      "productNameLength": 10,
+      "productDescriptionLength": 80,
+      "productPhotosQty": 3,
+      "productWeightG": 300,
+      "productLengthCm": 25,
+      "productHeightCm": 10,
+      "productWidthCm": 15
+    },
+    {
+      "id": "P44556",
+      "productCategoryName": "books",
+      "productNameLength": 25,
+      "productDescriptionLength": 150,
+      "productPhotosQty": 1,
+      "productWeightG": 400,
+      "productLengthCm": 20,
+      "productHeightCm": 3,
+      "productWidthCm": 15
+    },
+    {
+      "id": "P77889",
+      "productCategoryName": "clothing",
+      "productNameLength": 13,
+      "productDescriptionLength": 110,
+      "productPhotosQty": 3,
+      "productWeightG": 250,
+      "productLengthCm": 30,
+      "productHeightCm": 2,
+      "productWidthCm": 25
+    },
+    {
+      "id": "P99001",
+      "productCategoryName": "beauty",
+      "productNameLength": 17,
+      "productDescriptionLength": 95,
+      "productPhotosQty": 2,
+      "productWeightG": 100,
+      "productLengthCm": 10,
+      "productHeightCm": 5,
+      "productWidthCm": 5
+    },
+    {
+      "id": "P22445",
+      "productCategoryName": "automotive",
+      "productNameLength": 22,
+      "productDescriptionLength": 180,
+      "productPhotosQty": 4,
+      "productWeightG": 1200,
+      "productLengthCm": 45,
+      "productHeightCm": 10,
+      "productWidthCm": 20
+    },
+    {
+      "id": "P66778",
+      "productCategoryName": "garden",
+      "productNameLength": 19,
+      "productDescriptionLength": 140,
+      "productPhotosQty": 3,
+      "productWeightG": 800,
+      "productLengthCm": 40,
+      "productHeightCm": 12,
+      "productWidthCm": 25
+    }
+  ],
+  "sellers": [
+    {
+      "id": "S1001",
+      "sellerZipCodePrefix": 85001,
+      "sellerCity": "Phoenix",
+      "sellerState": "AZ"
+    },
+    {
+      "id": "S1002",
+      "sellerZipCodePrefix": 94102,
+      "sellerCity": "San Francisco",
+      "sellerState": "CA"
+    },
+    {
+      "id": "S1003",
+      "sellerZipCodePrefix": 10001,
+      "sellerCity": "New York",
+      "sellerState": "NY"
+    },
+    {
+      "id": "S1004",
+      "sellerZipCodePrefix": 60601,
+      "sellerCity": "Chicago",
+      "sellerState": "IL"
+    },
+    {
+      "id": "S1005",
+      "sellerZipCodePrefix": 73301,
+      "sellerCity": "Austin",
+      "sellerState": "TX"
+    },
+    {
+      "id": "S1006",
+      "sellerZipCodePrefix": 98101,
+      "sellerCity": "Seattle",
+      "sellerState": "WA"
+    },
+    {
+      "id": "S1007",
+      "sellerZipCodePrefix": 30301,
+      "sellerCity": "Atlanta",
+      "sellerState": "GA"
+    },
+    {
+      "id": "S1008",
+      "sellerZipCodePrefix": 48201,
+      "sellerCity": "Detroit",
+      "sellerState": "MI"
+    },
+    {
+      "id": "S1009",
+      "sellerZipCodePrefix": 33101,
+      "sellerCity": "Miami",
+      "sellerState": "FL"
+    },
+    {
+      "id": "S1010",
+      "sellerZipCodePrefix": 37201,
+      "sellerCity": "Nashville",
+      "sellerState": "TN"
+    }
+  ]
+}
