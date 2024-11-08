@@ -1,4 +1,4 @@
-Steps:
+Steps to run:
 
 1. Run `npm i` to install dependencies.
 2. Run `npm run start` in one terminal for the React app.
