@@ -252,7 +252,7 @@ function updateTable(records) {
     
         try {
             const response = await fetch('http://127.0.0.1:8000/filter-records', {
-                method: 'POST',
+                method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
                 },

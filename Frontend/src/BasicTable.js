@@ -6,7 +6,6 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Button } from '@mui/material';
 import EditButton from './EditButton';
 import { DeleteButton } from './DeleteButton';
 
@@ -20,7 +19,7 @@ export default function BasicTable({
 	tableName,
 }) {
 	const handleSave = (formData) => {
-		fetch(`http://localhost:8000/${tableName}/${formData.id}`, {
+		fetch(`http://localhost:8001/${tableName}/${formData.id}`, {
 			method: 'PUT',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify(formData),
@@ -32,7 +31,7 @@ export default function BasicTable({
 	};
 
 	const handleDelete = (id) => {
-		fetch(`http://localhost:8000/${tableName}/${id}`).then(() => {
+		fetch(`http://localhost:8001/${tableName}/${id}`).then(() => {
 			onDeleteRow(id);
 		});
 	};

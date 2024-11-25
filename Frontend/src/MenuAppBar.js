@@ -15,10 +15,8 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-
-import BasicTable from './BasicTable';
 import { camelCaseToTitleCase, titleToCamelCase } from './utils/functions';
-import { AddButton } from './AddButton';
+import EditableDataGrid from './EditableDataGrid';
 const drawerWidth = 240;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -96,11 +94,17 @@ export default function MenuAppBar() {
 	const [tableName, setTableName] = React.useState('Customers');
 
 	React.useEffect(() => {
-		const name = titleToCamelCase(tableName);
-		fetch(`http://localhost:8000/${name}`)
+		const params = {
+			zipRangeMin: 0,
+			zipRangeMax: 99999,
+			city: '',
+			state: '',
+		};
+		fetch(`http://localhost:8000/filter-records?${new URLSearchParams(params)}`)
 			.then((response) => response.json())
 			.then((d) => {
-				setTableData(getTableData(d));
+				console.log(d);
+				setTableData(d.records);
 			});
 	}, [tableName]);
 
@@ -114,35 +118,6 @@ export default function MenuAppBar() {
 
 	const handleTableNameClick = (text) => {
 		setTableName(text);
-	};
-
-	const handleSetRows = (formData) => {
-		setTableData({
-			...tableData,
-			rows: tableData.rows.map((r) => (r.id === formData.id ? formData : r)),
-		});
-	};
-	const handleDeleteRow = (id) => {
-		setTableData((d) => ({
-			...tableData,
-			rows: tableData.rows.filter((r) => r.id !== id),
-		}));
-	};
-
-	const handleAddRow = (data) => {
-		console.log(tableName, data);
-		fetch(`http://localhost:8000/${titleToCamelCase(tableName)}`, {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify(data),
-		})
-			.then((response) => response.json())
-			.then(() => {
-				setTableData({
-					...tableData,
-					rows: [...tableData.rows, data],
-				});
-			});
 	};
 
 	return (
@@ -193,15 +168,7 @@ export default function MenuAppBar() {
 				</DrawerHeader>
 				<Divider />
 				<List>
-					{[
-						'Customers',
-						'Order Items',
-						'Order Payments',
-						'Order Reviews',
-						'Orders',
-						'Products',
-						'Sellers',
-					].map((text) => (
+					{['Customers'].map((text) => (
 						<ListItem key={text} disablePadding>
 							<ListItemButton
 								onClick={() => {
@@ -218,22 +185,7 @@ export default function MenuAppBar() {
 			<Main open={open}>
 				<DrawerHeader />
 				<Typography sx={{ marginBottom: 2 }}>{tableName}</Typography>
-				{tableData && (
-					<>
-						<BasicTable
-							{...tableData}
-							onSetRows={handleSetRows}
-							tableName={titleToCamelCase(tableName)}
-							onDeleteRow={handleDeleteRow}
-						/>
-						<AddButton
-							headings={tableData.headings}
-							props={tableData.props}
-							tableName={tableName}
-							onAddRow={handleAddRow}
-						/>
-					</>
-				)}
+				{tableData && <EditableDataGrid tableData={tableData} />}
 			</Main>
 		</Box>
 	);
