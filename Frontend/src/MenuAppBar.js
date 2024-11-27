@@ -17,6 +17,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import { camelCaseToTitleCase, titleToCamelCase } from './utils/functions';
 import EditableDataGrid from './EditableDataGrid';
+import { Filters } from './Filters';
 const drawerWidth = 240;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -92,6 +93,7 @@ export default function MenuAppBar() {
 	const [open, setOpen] = React.useState(false);
 	const [tableData, setTableData] = React.useState();
 	const [tableName, setTableName] = React.useState('Customers');
+	const [totalRecords, setTotalRecords] = React.useState(0);
 
 	React.useEffect(() => {
 		const params = {
@@ -103,8 +105,8 @@ export default function MenuAppBar() {
 		fetch(`http://localhost:8000/filter-records?${new URLSearchParams(params)}`)
 			.then((response) => response.json())
 			.then((d) => {
-				console.log(d);
 				setTableData(d.records);
+				setTotalRecords(d.count);
 			});
 	}, [tableName]);
 
@@ -118,6 +120,15 @@ export default function MenuAppBar() {
 
 	const handleTableNameClick = (text) => {
 		setTableName(text);
+	};
+
+	const handleFilterChange = (params) => {
+		fetch(`http://localhost:8000/filter-records?${new URLSearchParams(params)}`)
+			.then((response) => response.json())
+			.then((d) => {
+				setTableData(d.records);
+				setTotalRecords(d.count);
+			});
 	};
 
 	return (
@@ -184,8 +195,17 @@ export default function MenuAppBar() {
 			</Drawer>
 			<Main open={open}>
 				<DrawerHeader />
-				<Typography sx={{ marginBottom: 2 }}>{tableName}</Typography>
-				{tableData && <EditableDataGrid tableData={tableData} />}
+				<Filters handleFilterChange={handleFilterChange} />
+
+				{tableData && (
+					<>
+						<Typography sx={{ marginBottom: 2 }}>
+							Displaying {tableData.length} out of {totalRecords} records. Apply
+							filters to refine your search.
+						</Typography>
+						<EditableDataGrid tableData={tableData} />
+					</>
+				)}
 			</Main>
 		</Box>
 	);

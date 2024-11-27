@@ -13,31 +13,28 @@ import {
 	GridActionsCellItem,
 	GridRowEditStopReasons,
 } from '@mui/x-data-grid';
-import { randomId } from '@mui/x-data-grid-generator';
-import { customers } from './data/customers';
 import brazilStates from './data/brazilStates.json';
 import { generateRandomString } from './utils/functions';
-const initialRows = customers;
 
 function EditToolbar(props) {
 	const { setRows, setRowModesModel } = props;
 
 	const handleClick = () => {
-		const customer_unique_id = generateRandomString();
-        console.log(customer_unique_id);
+		const customer_id = generateRandomString();
 		setRows((oldRows) => [
 			{
-				customer_unique_id,
-				customer_id: generateRandomString(),
-				customer_zip_code_prefix: '',
-				city: '',
-				state: true,
+				customer_id,
+				customer_unique_id: generateRandomString(),
+				customer_zip_code_prefix: '69930',
+				customer_city: 'xapuri',
+				customer_state: brazilStates[0],
 			},
 			...oldRows,
 		]);
+
 		setRowModesModel((oldModel) => ({
 			...oldModel,
-			[customer_unique_id]: {
+			[customer_id]: {
 				mode: GridRowModes.Edit,
 				fieldToFocus: 'customer_zip_code_prefix',
 			},
@@ -63,6 +60,10 @@ export default function FullFeaturedCrudGrid({ tableData }) {
 		}
 	};
 
+	React.useEffect(() => {
+		setRows(tableData);
+	}, [tableData]);
+
 	const handleEditClick = (id) => () => {
 		setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
 	};
@@ -71,8 +72,27 @@ export default function FullFeaturedCrudGrid({ tableData }) {
 		setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
 	};
 
-	const handleDeleteClick = (id) => () => {
-		setRows(rows.filter((row) => row.customer_unique_id !== id));
+	const handleDeleteClick = (id) => async () => {
+		try {
+			// Make the HTTP request (example using fetch)
+			const response = await fetch(
+				`http://localhost:8000/delete-record?customerId=${id}`,
+				{
+					method: 'DELETE',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({ customerId: id }),
+				}
+			);
+
+			if (!response.ok) {
+				throw new Error(`Failed to delete record: ${response.statusText}`);
+			}
+			setRows(rows.filter((row) => row.customer_id !== id));
+		} catch (error) {
+			console.error('Error deleting record:', error);
+		}
 	};
 
 	const handleCancelClick = (id) => () => {
@@ -81,20 +101,65 @@ export default function FullFeaturedCrudGrid({ tableData }) {
 			[id]: { mode: GridRowModes.View, ignoreModifications: true },
 		});
 
-		const editedRow = rows.find((row) => row.customer_unique_id === id);
+		const editedRow = rows.find((row) => row.customer_id === id);
 		if (editedRow.isNew) {
-			setRows(rows.filter((row) => row.customer_unique_id !== id));
+			setRows(rows.filter((row) => row.customer_id !== id));
 		}
 	};
 
-	const processRowUpdate = (newRow) => {
-		const updatedRow = { ...newRow, isNew: false };
-		setRows(
-			rows.map((row) =>
-				row.customer_unique_id === newRow.customer_unique_id ? updatedRow : row
-			)
+	const processRowUpdate = async (newRow) => {
+		// Find the original row
+		const originalRow = rows.find(
+			(row) => row.customer_id === newRow.customer_id
 		);
-		return updatedRow;
+
+		// Determine what fields were updated
+		const changes = {};
+		Object.keys(newRow).forEach((key) => {
+			if (newRow[key] !== originalRow[key]) {
+				changes[key] = { oldValue: originalRow[key], newValue: newRow[key] };
+			}
+		});
+
+		// Log the changes
+
+		// Prepare the payload for the HTTP request
+		const updatePayload = {
+			customerId: newRow.customer_id, // Use the customer_id for the backend lookup
+			customerUniqueId: newRow.customer_unique_id,
+			zipCodePrefix: newRow.customer_zip_code_prefix || undefined,
+			city: newRow.customer_city || undefined,
+			state: newRow.customer_state || undefined,
+		};
+
+		try {
+			// Make the HTTP request (example using fetch)
+			const response = await fetch(`http://localhost:8000/update-record`, {
+				method: 'PUT',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(updatePayload),
+			});
+
+			if (!response.ok) {
+				throw new Error(`Failed to update record: ${response.statusText}`);
+			}
+
+			// If the request succeeds, update the row in the state
+			const updatedRow = { ...newRow, isNew: false };
+			setRows(
+				rows.map((row) =>
+					row.customer_id === newRow.customer_id ? updatedRow : row
+				)
+			);
+			return updatedRow;
+		} catch (error) {
+			console.error('Error updating record:', error);
+
+			// Optionally, revert the change in the UI if the update fails
+			return originalRow;
+		}
 	};
 
 	const handleRowModesModelChange = (newRowModesModel) => {
@@ -102,40 +167,33 @@ export default function FullFeaturedCrudGrid({ tableData }) {
 	};
 
 	const columns = [
-		{ field: 'customer_id', headerName: 'ID', width: 180, editable: true },
+		{ field: 'customer_id', headerName: 'ID', width: 180, editable: false },
 		{
 			field: 'customer_unique_id',
 			headerName: 'Unique Id',
-			// type: 'number',
-			// width: 80,
-			// align: 'left',
-			// headerAlign: 'left',
-			editable: true,
+			editable: false,
 			flex: 1,
 		},
 		{
-			field: 'zip_code_prefix',
+			field: 'customer_zip_code_prefix',
 			headerName: 'Zip Code Prefix',
 			align: 'left',
 			headerAlign: 'left',
 			type: 'number',
-			// width: 180,
 			editable: true,
 			flex: 1,
 		},
 		{
-			field: 'state',
+			field: 'customer_state',
 			headerName: 'State',
-			// width: 220,
 			editable: true,
 			type: 'singleSelect',
 			valueOptions: brazilStates,
 			flex: 1,
 		},
 		{
-			field: 'city',
+			field: 'customer_city',
 			headerName: 'City',
-			// width: 220,
 			editable: true,
 			flex: 1,
 		},
@@ -152,6 +210,7 @@ export default function FullFeaturedCrudGrid({ tableData }) {
 				if (isInEditMode) {
 					return [
 						<GridActionsCellItem
+							key="save"
 							icon={<SaveIcon />}
 							label="Save"
 							sx={{
@@ -160,6 +219,7 @@ export default function FullFeaturedCrudGrid({ tableData }) {
 							onClick={handleSaveClick(id)}
 						/>,
 						<GridActionsCellItem
+							key="cancel"
 							icon={<CancelIcon />}
 							label="Cancel"
 							className="textPrimary"
@@ -171,6 +231,7 @@ export default function FullFeaturedCrudGrid({ tableData }) {
 
 				return [
 					<GridActionsCellItem
+						key="edit"
 						icon={<EditIcon />}
 						label="Edit"
 						className="textPrimary"
@@ -178,6 +239,7 @@ export default function FullFeaturedCrudGrid({ tableData }) {
 						color="inherit"
 					/>,
 					<GridActionsCellItem
+						key="delete"
 						icon={<DeleteIcon />}
 						label="Delete"
 						onClick={handleDeleteClick(id)}
@@ -202,7 +264,7 @@ export default function FullFeaturedCrudGrid({ tableData }) {
 			}}
 		>
 			<DataGrid
-				getRowId={(row) => row.customer_unique_id}
+				getRowId={(row) => row.customer_id}
 				rows={rows}
 				columns={columns}
 				editMode="row"
