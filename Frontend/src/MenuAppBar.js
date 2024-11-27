@@ -18,6 +18,12 @@ import ListItemText from '@mui/material/ListItemText';
 import { camelCaseToTitleCase, titleToCamelCase } from './utils/functions';
 import EditableDataGrid from './EditableDataGrid';
 import { Filters } from './Filters';
+import {
+	FormControlLabel,
+	FormGroup,
+	Switch,
+	ToggleButton,
+} from '@mui/material';
 const drawerWidth = 240;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -94,6 +100,7 @@ export default function MenuAppBar() {
 	const [tableData, setTableData] = React.useState();
 	const [tableName, setTableName] = React.useState('Customers');
 	const [totalRecords, setTotalRecords] = React.useState(0);
+	const [nodes, setNodes] = React.useState([true, true, true]);
 
 	React.useEffect(() => {
 		const params = {
@@ -129,6 +136,10 @@ export default function MenuAppBar() {
 				setTableData(d.records);
 				setTotalRecords(d.count);
 			});
+	};
+
+	const handleNodeChange = (event, idx) => {
+		setNodes(nodes.map((n, i) => (i === idx ? event.target.checked : n)));
 	};
 
 	return (
@@ -195,6 +206,27 @@ export default function MenuAppBar() {
 			</Drawer>
 			<Main open={open}>
 				<DrawerHeader />
+				<FormGroup
+					style={{
+						flexDirection: 'row',
+						margin: '20px',
+						justifyContent: 'space-evenly',
+					}}
+				>
+					{nodes.map((node, i) => (
+						<FormControlLabel
+							key={i}
+							control={
+								<Switch
+									checked={node}
+									onChange={(e) => handleNodeChange(e, i)}
+								/>
+							}
+							label={`Node ${i + 1}`}
+						/>
+					))}
+				</FormGroup>
+
 				<Filters handleFilterChange={handleFilterChange} />
 
 				{tableData && (
