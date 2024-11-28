@@ -8,8 +8,6 @@ MONGO_DETAILS = "mongodb://localhost:27017"  # Adjust if needed
 # Define MongoDB client and database collections
 client = AsyncIOMotorClient(MONGO_DETAILS)
 
-print(client)
-
 # Connect to each region's database and customers collection
 region_databases = {
     "region_1": client["olist_database_region_1"]["customers"],

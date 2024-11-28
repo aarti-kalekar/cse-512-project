@@ -82,19 +82,6 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 export default function MenuAppBar() {
-	const getTableData = (d) => {
-		const props = Object.keys(d[0]);
-		const headings = props.map((prop) => camelCaseToTitleCase(prop));
-		headings.push('', '');
-
-		return {
-			headings,
-			props,
-			rows: [...d],
-			rowKey: 'id',
-		};
-	};
-
 	const theme = useTheme();
 	const [open, setOpen] = React.useState(false);
 	const [tableData, setTableData] = React.useState();
@@ -118,6 +105,33 @@ export default function MenuAppBar() {
 				setTotalRecords(d.count);
 			});
 	}, [tableName]);
+
+	React.useEffect(() => {
+		// Function to fetch data
+		const fetchData = async () => {
+			try {
+				const response = await fetch(
+					`http://localhost:8000/sync-databases?nodes=${nodes}`,
+					{
+						method: 'PUT',
+					}
+				);
+				const result = await response.json();
+				console.log('Data fetched:', result);
+			} catch (error) {
+				console.error('Error fetching data:', error);
+			}
+		};
+
+		// Fetch data immediately on component mount
+		fetchData();
+
+		// Set up interval to fetch data every 5 minutes
+		const intervalId = setInterval(fetchData, 9 * 60 * 1000); // 5 minutes in milliseconds
+
+		// Cleanup interval on component unmount
+		return () => clearInterval(intervalId);
+	}, []);
 
 	const handleDrawerOpen = () => {
 		setOpen(true);
