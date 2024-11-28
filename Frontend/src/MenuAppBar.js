@@ -101,6 +101,7 @@ export default function MenuAppBar() {
 	const [tableName, setTableName] = React.useState('Customers');
 	const [totalRecords, setTotalRecords] = React.useState(0);
 	const [nodes, setNodes] = React.useState([true, true, true]);
+	const [nodesDisabled, setNodesDisabled] = React.useState(false);
 
 	React.useEffect(() => {
 		const params = {
@@ -108,6 +109,7 @@ export default function MenuAppBar() {
 			zipRangeMax: 99999,
 			city: '',
 			state: '',
+			nodes,
 		};
 		fetch(`http://localhost:8000/filter-records?${new URLSearchParams(params)}`)
 			.then((response) => response.json())
@@ -130,7 +132,12 @@ export default function MenuAppBar() {
 	};
 
 	const handleFilterChange = (params) => {
-		fetch(`http://localhost:8000/filter-records?${new URLSearchParams(params)}`)
+		fetch(
+			`http://localhost:8000/filter-records?${new URLSearchParams({
+				...params,
+				nodes,
+			})}`
+		)
 			.then((response) => response.json())
 			.then((d) => {
 				setTableData(d.records);
@@ -139,7 +146,11 @@ export default function MenuAppBar() {
 	};
 
 	const handleNodeChange = (event, idx) => {
-		setNodes(nodes.map((n, i) => (i === idx ? event.target.checked : n)));
+		const newNodes = nodes.map((n, i) =>
+			i === idx ? event.target.checked : n
+		);
+		setNodes(newNodes);
+		setNodesDisabled(newNodes.filter((n) => n).length === 1);
 	};
 
 	return (
@@ -220,6 +231,7 @@ export default function MenuAppBar() {
 								<Switch
 									checked={node}
 									onChange={(e) => handleNodeChange(e, i)}
+									disabled={nodesDisabled && node}
 								/>
 							}
 							label={`Node ${i + 1}`}
@@ -235,7 +247,7 @@ export default function MenuAppBar() {
 							Displaying {tableData.length} out of {totalRecords} records. Apply
 							filters to refine your search.
 						</Typography>
-						<EditableDataGrid tableData={tableData} />
+						<EditableDataGrid tableData={tableData} nodes={nodes} />
 					</>
 				)}
 			</Main>

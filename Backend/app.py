@@ -26,6 +26,12 @@ region_databases = {
     "region_3": client["olist_database_region_3"]["customers"]
 }
 
+m = {
+    1: 3,
+    2: 1,
+    3: 2
+}
+
 
 def get_region(zipcode_prefix: int) -> Optional[str]:
     """Determines the region based on the zipcode prefix."""
@@ -56,6 +62,8 @@ def build_query(zipRangeMin: int, zipRangeMax: int, city: Optional[str] = None, 
     return query
 
 # Define the data model for incoming filter requests
+
+
 class FilterRequest(BaseModel):
     zipRangeMin: int
     zipRangeMax: int
@@ -63,8 +71,14 @@ class FilterRequest(BaseModel):
     state: Optional[str] = None
 
 # Endpoint to filter records based on the criteria
+
+
+def to_bool_list(input_str):
+    return [item.lower() == 'true' for item in input_str.split(',')]
+
+
 @app.get("/filter-records")
-async def filter_records(zipRangeMin: int, zipRangeMax: int, city: Optional[str] = None, state: Optional[str] = None):
+async def filter_records(zipRangeMin: int, zipRangeMax: int, city: Optional[str] = None, state: Optional[str] = None, nodes: str = None):
     # Build MongoDB query
     query = build_query(
         zipRangeMin=zipRangeMin,
@@ -72,10 +86,36 @@ async def filter_records(zipRangeMin: int, zipRangeMax: int, city: Optional[str]
         city=city,
         state=state
     )
-    print(query)
+    nodes_list = to_bool_list(nodes)
+
     # Now you can use this `query` in MongoDB's `find` method without type issues
     records = []
-    for region_name, collection in region_databases.items():
+    # put r1c1,r2c1,r3c1
+    # for each node if false remove
+    # check if nodes[m[i]] is true if yes add r<m[i]>c<2>
+    res = {}
+    print(nodes_list[m[2]])
+
+    if nodes_list[0] == True:
+        res["region_1"] = client["olist_database_region_1"]["customers"]
+    elif nodes_list[m[1] - 1] == True:
+        res["region_1_backup"] = client["olist_database_region_" +
+                                        str(m[1])]["customers_2"]
+
+    if nodes_list[1] == True:
+        res["region_2"] = client["olist_database_region_2"]["customers"]
+    elif nodes_list[m[2] - 1] == True:
+        res["region_2_backup"] = client["olist_database_region_" +
+                                        str(m[2])]["customers_2"]
+
+    if nodes_list[2] == True:
+        res["region_3"] = client["olist_database_region_3"]["customers"]
+    elif nodes_list[m[3] - 1] == True:
+        res["region_3_backup"] = client["olist_database_region_" +
+                                        str(m[3])]["customers_2"]
+
+    print(res.keys())
+    for region_name, collection in res.items():
         count = await collection.count_documents(query)
         async for record in collection.find(query).limit(100):
             records.append({
@@ -93,6 +133,7 @@ async def filter_records(zipRangeMin: int, zipRangeMax: int, city: Optional[str]
 
     return {"records": records, "count": count}
 
+
 class UpdateRequest(BaseModel):
     customerId: str  # Mandatory: Unique identifier for the customer
     # Optional: Unique identifier for the customer
@@ -103,7 +144,7 @@ class UpdateRequest(BaseModel):
 
 
 @app.put("/update-record")
-async def update_record(request: UpdateRequest):
+async def update_record(request: UpdateRequest, nodes: str = None):
     # Search query based solely on customer_id
     query = {"customer_id": request.customerId}
 
@@ -125,17 +166,26 @@ async def update_record(request: UpdateRequest):
     total_upserted = 0
     updated_regions = []
 
+    nodes_list = to_bool_list(nodes)
+
     region_name = get_region(request.zipCodePrefix)
-    collection = region_databases.get(region_name)
 
-    result = await collection.update_one(query, update_operation, upsert=True)
-    if result.matched_count > 0 or result.upserted_id:
-        total_upserted += 1
-        updated_regions.append(region_name)
+    res = {}
+    if nodes_list[int(region_name[-1]) - 1] == True:
+        res[region_name] = region_databases.get(region_name)
 
-    if total_upserted == 0:
-        raise HTTPException(
-            status_code=500, detail="Failed to update or create record")
+    if nodes_list[m[int(region_name[-1])] - 1] == True:
+        res[region_name + "_backup"] = client["olist_database_region_" +
+                                              str(m[int(region_name[-1])])]["customers_2"]
+    for region_name, collection in res.items():
+        result = await collection.update_one(query, update_operation, upsert=True)
+        if result.matched_count > 0 or result.upserted_id:
+            total_upserted += 1
+            updated_regions.append(region_name)
+
+        if total_upserted == 0:
+            raise HTTPException(
+                status_code=500, detail="Failed to update or create record")
 
     return {
         "message": "Record updated successfully" if total_upserted > 0 else "Record created successfully",

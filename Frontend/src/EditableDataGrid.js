@@ -50,7 +50,7 @@ function EditToolbar(props) {
 	);
 }
 
-export default function FullFeaturedCrudGrid({ tableData }) {
+export default function FullFeaturedCrudGrid({ tableData, nodes }) {
 	const [rows, setRows] = React.useState(tableData);
 	const [rowModesModel, setRowModesModel] = React.useState({});
 
@@ -76,7 +76,7 @@ export default function FullFeaturedCrudGrid({ tableData }) {
 		try {
 			// Make the HTTP request (example using fetch)
 			const response = await fetch(
-				`http://localhost:8000/delete-record?customerId=${id}`,
+				`http://localhost:8000/delete-record?customerId=${id}?nodes=${nodes}`,
 				{
 					method: 'DELETE',
 					headers: {
@@ -134,13 +134,16 @@ export default function FullFeaturedCrudGrid({ tableData }) {
 
 		try {
 			// Make the HTTP request (example using fetch)
-			const response = await fetch(`http://localhost:8000/update-record`, {
-				method: 'PUT',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify(updatePayload),
-			});
+			const response = await fetch(
+				`http://localhost:8000/update-record?nodes=${nodes}`,
+				{
+					method: 'PUT',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify(updatePayload),
+				}
+			);
 
 			if (!response.ok) {
 				throw new Error(`Failed to update record: ${response.statusText}`);
