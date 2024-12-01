@@ -46,6 +46,11 @@ git clone <repository-url>
 cd <repository-directory>
 ```
 
+#### 2. Open the Application folder
+```bash
+cd ./cse-512-project/Application
+```
+
 #### 2. Set Up the Python Environment
 ```bash
 python -m venv myenv
@@ -53,31 +58,27 @@ source myenv/bin/activate  # On Windows: myenv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-#### 3. Configure Environment Variables
-Create a `.env` file in the root directory with the following content:
-```env
-KAFKA_BOOTSTRAP_SERVER=localhost:9092
-REDIS_HOST=localhost
-REDIS_PORT=6379
-MONGO_URI=mongodb://localhost:27017
-FASTAPI_PORT=8000
-```
-
-#### 4. Start Services Using Docker Compose
-Ensure Docker is running, then execute:
+#### 3. Start Services Using Docker Compose
+Ensure Docker is running and download redis and kafka images in docker desktop, then execute:
 ```bash
-docker compose up
+1. docker compose up
+2. cd /cse-512-project/Application/kafka-docker
+3. docker-compose -f docker-compose.yml up -d
+4. cd /cse-512-project/Application/redis-docker
+5. docker-compose -f docker-compose.yml up -d
 ```
 
 #### 5. Start the Backend
 ```bash
-python app/main.py
+fastapi dev app.py
 ```
 
 #### 6. Access the Frontend
 Open the following URLs in your browser:
-- **Create Records**: `http://localhost:8000/create-records`
-- **View Records**: `http://localhost:8000/view-records`
+- **index.html**: `open using live server in vscode(http://localhost:5500/cse-512-project/Application/index.html)`
+![image](https://github.com/user-attachments/assets/0770d0b8-b984-4242-bf26-715efa09fa2a)
+![image](https://github.com/user-attachments/assets/cb68fc40-f633-4730-b866-46e4009c74e6)
+![image](https://github.com/user-attachments/assets/00391760-ab2e-479e-a3e2-4010cc8a2da2)
 
 ---
 
