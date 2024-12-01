@@ -42,8 +42,8 @@ The system leverages a **FastAPI-based middleware** to facilitate seamless inter
 
 #### 1. Clone the Repository
 ```bash
-git clone <repository-url>
-cd <repository-directory>
+git clone git@github.com:aarti-kalekar/cse-512-project.git
+cd /cse-512-project
 ```
 
 #### 2. Open the Application folder
