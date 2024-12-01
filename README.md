@@ -48,7 +48,7 @@ cd <repository-directory>
 
 #### 2. Open the Application folder
 ```bash
-cd ./cse-512-project/Application
+cd /cse-512-project/Application
 ```
 
 #### 2. Set Up the Python Environment
