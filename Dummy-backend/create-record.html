@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Customer Record</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles for smaller, dark-themed cards */
+        .card {
+            background-color: #343a40; /* Dark theme */
+            color: #ffffff;
+            padding: 0.5rem; /* Reduced padding */
+        }
+        .status-indicator {
+            width: 15px; /* Smaller indicator */
+            height: 15px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-left: 5px; /* Reduced space */
+        }
+        .status-available {
+            background-color: green;
+        }
+        .status-unavailable {
+            background-color: red;
+        }
+        .node-container h5 {
+            margin-right: 8px; /* Reduced space between text and switch */
+            margin-bottom: 0; /* Remove bottom margin */
+            font-size: 1rem; /* Smaller font size */
+        }
+        .form-check.form-switch {
+            margin-right: 8px; /* Reduced space between switch and signal */
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Olist E-Commerce</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="view-records.html">View Records</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="create-record.html">Create Record</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Node Switches and Status Indicators -->
+    <div class="container mt-4">
+        <div class="row">
+            <!-- Node 1 Card -->
+            <div class="col-md-4 mb-3">
+                <div class="card text-center">
+                    <div class="d-flex align-items-center justify-content-center node-container">
+                        <h5 class="mb-0">Node 1</h5>
+                        <div class="form-check form-switch d-inline">
+                            <input type="checkbox" class="form-check-input" id="node1-switch" checked>
+                        </div>
+                        <span id="node1-status" class="status-indicator status-available"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Node 2 Card -->
+            <div class="col-md-4 mb-3">
+                <div class="card text-center">
+                    <div class="d-flex align-items-center justify-content-center node-container">
+                        <h5 class="mb-0">Node 2</h5>
+                        <div class="form-check form-switch d-inline">
+                            <input type="checkbox" class="form-check-input" id="node2-switch" checked>
+                        </div>
+                        <span id="node2-status" class="status-indicator status-available"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Node 3 Card -->
+            <div class="col-md-4 mb-3">
+                <div class="card text-center">
+                    <div class="d-flex align-items-center justify-content-center node-container">
+                        <h5 class="mb-0">Node 3</h5>
+                        <div class="form-check form-switch d-inline">
+                            <input type="checkbox" class="form-check-input" id="node3-switch" checked>
+                        </div>
+                        <span id="node3-status" class="status-indicator status-available"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Form for Creating a New Record -->
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Create a New Customer Record</h1>
+        
+        <form id="create-form" action="/create" method="post">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <div class="card card-dark">
+                        <label for="customer_id" class="form-label">Customer ID</label>
+                        <input type="text" class="form-control" id="customer_id" name="customer_id" required>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <div class="card card-dark">
+                        <label for="customer_unique_id" class="form-label">Customer Unique ID</label>
+                        <input type="text" class="form-control" id="customer_unique_id" name="customer_unique_id" required>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <div class="card card-dark">
+                        <label for="customer_zip_code_prefix" class="form-label">Customer Zip Code Prefix</label>
+                        <input type="text" class="form-control" id="customer_zip_code_prefix" name="customer_zip_code_prefix" required>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <div class="card card-dark">
+                        <label for="customer_city" class="form-label">Customer City</label>
+                        <input type="text" class="form-control" id="customer_city" name="customer_city" required>
+                    </div>
+                </div>
+
+                <!-- Centered Customer State Field -->
+                <div class="col-md-6 offset-md-3 mb-3">
+                    <div class="card card-dark">
+                        <label for="customer_state" class="form-label">Customer State</label>
+                        <input type="text" class="form-control" id="customer_state" name="customer_state" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Create Record</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Bootstrap JS and Optional JavaScript for toggles -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // JavaScript to handle status color changes
+        document.getElementById("node1-switch").addEventListener("change", function() {
+            document.getElementById("node1-status").classList.toggle("status-available", this.checked);
+            document.getElementById("node1-status").classList.toggle("status-unavailable", !this.checked);
+        });
+
+        document.getElementById("node2-switch").addEventListener("change", function() {
+            document.getElementById("node2-status").classList.toggle("status-available", this.checked);
+            document.getElementById("node2-status").classList.toggle("status-unavailable", !this.checked);
+        });
+
+        document.getElementById("node3-switch").addEventListener("change", function() {
+            document.getElementById("node3-status").classList.toggle("status-available", this.checked);
+            document.getElementById("node3-status").classList.toggle("status-unavailable", !this.checked);
+        });
+    </script>
+</body>
+</html>

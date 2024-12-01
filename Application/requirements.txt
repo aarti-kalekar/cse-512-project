@@ -1,0 +1,6 @@
+fastapi
+pymongo
+kafka-python
+zookeeper
+redis
+types-redis
