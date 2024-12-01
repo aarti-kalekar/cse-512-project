@@ -1,4 +1,4 @@
-# Distributed Database Management System for Region-Specific Data
+# Distributed NoSQL Database System for E-commerce Platform
 
 This project is a **Distributed Database Management System** designed for efficient management of customer data across multiple regional databases. It allows the system to handle node availability dynamically, ensuring that data operations such as creating records are logged, replicated, and recovered efficiently using **Kafka** for messaging and **Redis** for storing node statuses.
 
